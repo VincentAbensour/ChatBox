@@ -1,6 +1,12 @@
 # ChatProject - API
- Backend part of my chat project with Django RestFrameWork.
 
- Authentification done with JWT Authentification that is managed in "api" app.
+A chat web application project that I've built with Django RestFrameWork for the API and React for the frontend part.
 
- Create a new virtual environment and enter pip install > requirements.txt to install the needed packages
+The app allows you to create channels, add friends from the list of users and chat with them in real time.
+
+For this project I didn't use Socket for the real time chat. The function that get the messages is updated every second.
+
+Authentification is done with JWT Authentification that is managed in "api" app.
+
+To install the required packages enter pip install -r requirements.txt in the main folder and npm install in the frontend folder
+

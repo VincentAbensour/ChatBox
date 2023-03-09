@@ -1,0 +1,294 @@
+body {
+    background: rgb(24,19,120);
+    background: linear-gradient(90deg, rgba(24,19,120,1) 46%, rgba(121,9,101,1) 76%, rgba(121,9,101,1) 100%);
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0;
+}
+
+/* Navigation Bar*/
+
+.nav-bar{
+    font-weight: 700;
+    border: black;
+    color : white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.nav-items-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding : 10px;
+}
+
+.nav-item, .nav-title{
+    padding : 10px;
+    margin : auto;
+}
+
+.nav-item>a:visited, .nav-item>p:visited{
+    color:white;
+}
+/* End of Navigation Bar*/
+
+
+
+/* Login and Register Page*/
+.login {
+    height: 400px;
+}
+
+.register {
+    height: 500px;
+}
+
+.log-page {
+    background-color: #FFFFFF;
+    width: 400px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+.log-page>h2 {
+    padding-top: 40px;
+    color: #8C55AA;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.log-input {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+form.login-form {
+    padding-top: 40px;
+}
+
+.log-input:focus {
+    border: 2px solid rgba(0, 0, 0, 0.18) !important;
+
+}
+
+.submit-button {
+  cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    border: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: 35%;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
+
+.forgot {
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    color: #E1BEE7;
+    padding-top: 15px;
+}
+
+a {
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    color: #E1BEE7;
+    text-decoration: none
+}
+
+/* End of Login and Register Page*/
+
+/* Chat Page*/
+.chat-page-container{
+    display: flex;
+    gap: 10px;
+    width: 70vw;
+    height: 70vh;
+    margin: auto;
+}
+
+.chat-box{
+    background: blue;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.message_history{
+    width: 49vw;
+    height: 42vh;
+    margin: auto;
+    margin-top: 3.5vh;
+    overflow-y: scroll;
+}
+
+/* All Messages*/
+.time_date{
+    font-size: 10px;
+}
+
+.message_user_name{
+    font-size: 10px;
+}
+
+.sent_message, .incoming_message{
+    background-color: aliceblue;
+    border-radius: 20px;
+    width: 30vw;
+    margin: 5px 0px 5px 0px;
+    overflow-wrap: break-word;
+}
+
+.message_content{
+    font-weight: 600;
+}
+
+/* Outgoing Messages */
+.sent_message{
+    float: right;
+    text-align: left;
+    padding: 5px 0px 5px 15px;
+    margin-right: 10px;
+}
+
+
+.sent_message_content{
+    margin: 0;
+    padding: 5px 5px 5px 0px;
+}
+
+/* Incoming Messages*/
+.incoming_message{
+    float: left;
+    padding: 5px 5px 5px 15px;
+    margin-left: 10px;
+}
+
+
+.incoming_message_content{
+    overflow: visible;
+}
+
+/* Send Message Area*/
+.send-messages-box{
+    width: 49vw;
+    height: 21vh;
+    margin: auto;
+}
+
+.send-messages-box >form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-textarea{
+    color: rgb(38, 50, 56);
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    background: rgba(255, 255, 255,0.8);
+
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(241, 239, 239, 0.02);
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+
+    width: 80%;
+    margin: auto;
+}
+
+.message-button{
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    border: 0;
+    padding: 10px 40px 10px 40px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+
+    margin: auto;
+}
+
+/* End of Send Message Area*/
+
+/* End of Chat Page*/
+
+/* Channel Component*/
+.channels-container{
+    background: #e90ad6;
+    width: 30%;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.channelslist-container{
+    text-align: center;
+    padding : 10px;
+
+}
+
+.channel{
+    background: #fff;
+    border-radius: 20px;
+    max-width: 80%;
+    margin: auto;
+}
+
+.channel-control{
+    text-align: center;
+}
+
+.channel-control-section{
+    text-align: center;
+    padding: 5px;
+}
+
+.channel-control-section > form > *{
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.submit-button-channel {
+    display: block;
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    border: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    margin-top: 10px;
+  }
+/* End of Channel Component*/

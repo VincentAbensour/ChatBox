@@ -1,8 +1,3 @@
-Frontend Part of my Chat Project.
-
-HTML and CSS Inspired from :
-- https://codepen.io/Devel0per95/pen/rjOpdx
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

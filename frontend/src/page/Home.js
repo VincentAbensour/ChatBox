@@ -46,8 +46,36 @@ const Home = () => {
     /* As serializer for non-get request is different and return only user'id instead of an object we replace fetchedData['users'] from an array of ID to and array of { "id" : ID } */
     let users = fetchedData.users.map(x => ({'id' : x}))
     fetchedData['users'] = users
-
     setCurrentChannel(fetchedData)
+    getChannels()
+  }
+
+  let quitChannel = async (e,channel) => {
+    e.preventDefault()
+    const userId = user.user_id
+    let usersList = channel.users.map(x => x.id)
+    let uniqueList = [... new Set(usersList)]
+    let filteredList = uniqueList.filter(id => id != userId)
+
+    if(filteredList.length == 0){
+    const response = await fetch(`http://127.0.0.1:8000/chat/channel/${channel.id}/`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + String(authToken.access)
+        },
+    })}else{
+    const data = {
+      "users" : filteredList,
+    }
+    const response = await fetch(`http://127.0.0.1:8000/chat/channel/${channel.id}/`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + String(authToken.access)
+        },
+        body: JSON.stringify(data)
+    })}
     getChannels()
   }
 
@@ -61,30 +89,31 @@ const Home = () => {
 
       <div className="channelslist-container">
           {channels.map((channel,index)=>(
-              <div className="channel" key={index} onClick={e => {setCurrentChannel(channel)
-              console.log('channel', channel)}}>
-                <p>{channel.name}</p>
+            <div className="single-channel-container">
+              <div className="channel" key={index} onClick={e => {setCurrentChannel(channel)}}>
+                {channel.name}
               </div>
+              <button className='quit-channel' onClick={(e) => quitChannel(e,channel)}>&times;</button>
+            </div>
           ))}
       </div>
 
 
       <div className='channel-control'>
-          <div className='channel-control-section'>
-              <form onSubmit={e => {createChannel(e)}}>
+              <form className='new-channel' onSubmit={e => {createChannel(e)}}>
                   <input
+                  className='channel-log-input'
                   name='newchannel'
                   placeholder='Channel Name'
                   type="text"
                   onChange={e=>setChannelName(e.target.value)}></input>
-                  <input className="submit-button-channel" type="submit"/>
+                  <input className="submit-button-channel" type="submit" value="  Submit  "/>
               </form>
-          </div>
-          <UpdateChannel currentChannel={currentChannel}/>
+          <UpdateChannel currentChannel={currentChannel} setChannels={setChannels}/>
         </div>
 
     </div>
-      <ChatBox currentChannel={currentChannel}/>
+    <ChatBox currentChannel={currentChannel}/>
   </div>
   )
 }

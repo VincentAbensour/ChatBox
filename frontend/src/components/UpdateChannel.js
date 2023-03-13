@@ -1,30 +1,32 @@
-/* This comonent is used to add new users to the current channel this is represented by currentChannel and comes from Home */
+/* This component is used to add new users to the current channel that is represented by currentChannel */
 import {React, useState, useEffect, useContext} from 'react'
 import AuthContext from '../context/AuthContext'
 
-export default function UpdateChannel(currentChannel) {
+function arrayEquals(a, b) {
+    return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => val === b[index]);
+}
+
+export default function UpdateChannel({currentChannel}) {
 
     let {authToken, user, logout} = useContext(AuthContext)
     let [users, setUsers] = useState([])
     let [newUser, setNewUser] = useState([])
-    let [channelUsers, setChannelUsers] = useState([])
+
 
     let updateChannel = async (e) => {
         e.preventDefault()
 
-        /* If the channel has not been updated yet we push the new user in the currentChannel.users array and set channelUsers to this new value
-        Otherwise we use channelUsers that include the previous updates and we push the new user*/
-        let usersList = null
-        channelUsers.length == 0 ? usersList = currentChannel.currentChannel.users.map(x => x.id) : usersList = channelUsers
-        usersList.push(parseInt(newUser))
-
-        setChannelUsers([... new Set(usersList)])
+        let usersList = currentChannel.users.map(x => x.id)
+        usersList.push(parseInt(newUser.id))
+        currentChannel['users'].push(newUser)
 
         const data = {
-        /* We use usersList and not channelUsers at this point for the fetch request because setChannelUsers has not been processed yet*/
           "users" : [... new Set(usersList)],
         }
-        const response = await fetch(`http://127.0.0.1:8000/chat/channel/${currentChannel.currentChannel.id}/`, {
+        const response = await fetch(`http://127.0.0.1:8000/chat/channel/${currentChannel.id}/`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +34,14 @@ export default function UpdateChannel(currentChannel) {
             },
             body: JSON.stringify(data)
         })
+        if(response.status==200){
+            alert('New user added!')
+        }
       }
+
+    let handleChange = (e) => {
+        setNewUser(JSON.parse(e))
+    }
 
     useEffect(
         ()=>{
@@ -52,26 +61,20 @@ export default function UpdateChannel(currentChannel) {
                 }
               }
               getUsers()
-
         }, []
     )
 
     return (
-
-            <div className='channel-control-section'>
-                <form onSubmit={e => updateChannel(e)}>
-                    <select onChange={e => {setNewUser(e.target.value)}}>
-                        <option selected="selected"> Select A User</option>
-                        {
-                            users.map((user,index) => (
-                                <option key={index} value={user.id}>{user.username}</option>
-                            ))
-                        }
-                    </select>
-                    <input className="submit-button-channel" type="submit" value="Ajouter"/>
-                </form>
-            </div>
-
+        <form className='add-user' onSubmit={e => updateChannel(e)}>
+            <select onChange={e => {handleChange(e.target.value)}}>
+                <option selected="selected"> Add a New User</option>
+                {
+                    users.map((user,index) => (
+                        <option key={index} value={JSON.stringify(user)}>{user.username}</option>
+                    ))
+                }
+            </select>
+            <input className="submit-button-channel" type="submit" value="  Submit  "/>
+        </form>
     )
 }
-

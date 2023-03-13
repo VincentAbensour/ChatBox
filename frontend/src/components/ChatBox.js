@@ -3,30 +3,32 @@ The getMessages function is updated every second to render new messages*/
 import React, {useState, useContext, useEffect, useRef} from 'react'
 import AuthContext from '../context/AuthContext'
 
-const ChatBox = (currentChannel) => {
+const ChatBox = ({currentChannel}) => {
 
     let {authToken, user} = useContext(AuthContext)
     let [messages, setMessages] = useState([])
-    let [channel, setChannel] = useState(currentChannel.currentChannel)
+    let [channel, setChannel] = useState(currentChannel)
     let [messageContent, setmessageContent] = useState('')
 
     let getMessages = async () => {
-        let response = await fetch(`http://127.0.0.1:8000/chat/message/`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authToken.access),
-            },
-        })
-        let data = await response.json()
-        let filter = await data.filter(message => message.channel.id === currentChannel.currentChannel.id);
-        setMessages(filter)
+        if(Object.keys(currentChannel).length != 0){
+            let response = await fetch(`http://127.0.0.1:8000/chat/message/`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authToken.access),
+                },
+            })
+            let data = await response.json()
+            let filter = await data.filter(message => message.channel.id === currentChannel.id);
+            setMessages(filter)
+        }
     }
 
     let createMessage = async (e) => {
         e.preventDefault()
         const data = {
-            "channel" : currentChannel.currentChannel.id,
+            "channel" : currentChannel.id,
             "content" : messageContent,
         }
         const response = await fetch(`http://127.0.0.1:8000/chat/message/`, {
@@ -42,7 +44,7 @@ const ChatBox = (currentChannel) => {
 
 
     useEffect(()=>{
-            setChannel(currentChannel.currentChannel)
+            setChannel(currentChannel)
             getMessages()
 
             let interval = setInterval(()=>{
@@ -56,7 +58,11 @@ const ChatBox = (currentChannel) => {
 
     return (
         <div className="chat-box">
+            {currentChannel.name?
+            <div className="channel-title">{currentChannel.name}</div>
+            :<div className="channel-title">Choose A Channel</div>}
             <div className="message_history">
+
                 <div>
                     {messages.map((message,index)=>
                         message.user.id===user.user_id ?
@@ -78,7 +84,7 @@ const ChatBox = (currentChannel) => {
             <div className='send-messages-box'>
                 <form onSubmit={createMessage}>
                     <textarea className="message-textarea" onChange={(event) => {setmessageContent(event.target.value)}}> </textarea>
-                    <input className="message-button" type="submit"/>
+                    <input className="message-button" type="submit" value="Send"/>
                 </form>
             </div>
         </div>

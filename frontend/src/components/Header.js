@@ -7,25 +7,22 @@ const Header = () => {
   let {user, logout} = useContext(AuthContext)
 
   return (
+
     <nav className='nav-bar'>
-      <div className='nav-items-container'>
       <div className='nav-title'>
         { user ? <p>Hi {user.username}</p> : <p>Hi, Bel Incconu</p>}
       </div>
-      </div>
       <div className='nav-items-container'>
-        <div className='nav-item'>
-          <Link to="/">Home</Link>
+        <div className='nav-item-separator'>
+          |
         </div>
-        <div className='nav-item'>
-          { user ? <p onClick={logout} style={{display: "inline"}}>Logout</p> : <Link to="/login">Login</Link> }
-        </div>
-        <div className='nav-item'>
-          <Link to="/register">Register</Link>
-        </div>
+        <Link className='nav-item' to="/">Home</Link>
+        { user ? <p className='nav-item' onClick={logout}>Logout</p> : <Link className='nav-item' to="/login">Login</Link>}
+        <Link  className='nav-item' to="/register">Register</Link>
       </div>
     </nav>
   )
 }
 
 export default Header
+
